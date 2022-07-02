@@ -1,0 +1,278 @@
+{% verbatim %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>菜谱选择</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.37/vue.global.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .input {
+            /* border: none;
+            outline: none; */
+            width: 40%;
+            margin: 0 auto;
+            color: #ecf5ff;
+            background-color: #409EFF;
+            text-align: center;
+            height: 3rem;
+            line-height: 3rem;
+            font-size: 1.5rem;
+            border-radius: 1rem;
+            cursor: pointer;
+        }
+
+        /* 候选框详情 */
+        .hxkxqing {
+            height: 3rem;
+            line-height: 3rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .hxkxqing:hover {
+            background-color: #409EFF;
+            color: #ecf5ff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body id="app">
+    <div style="width: 100%; background-color: #d9ecff;" :style="wcgdszhi">
+        <!-- 菜谱选择 -->
+        <div style="margin: 0 auto; width: 80%;" :style="wcgdszhi">
+            <div style="width: 60%; float: left; text-align: center;" :style="wcgdszhi">
+                <p style="height: 3rem; line-height: 3rem; font-size: 2rem; text-align: center; font-weight: bold;">
+                    菜谱选择</p>
+                <p style="height: 3rem; line-height: 3rem; font-size: 1.5rem; text-align: left; font-weight: bold;">
+                    菜谱一</p>
+                <p style="height: 3rem; line-height: 3rem; font-size: 1.5rem;">请输入菜谱名称</p>
+                <p class="input" @click="modeldj1">{{model1}}</p>
+                <p style="height: 3rem; line-height: 3rem; font-size: 1.5rem; text-align: left; font-weight: bold;">
+                    菜谱二</p>
+                <p style="height: 3rem; line-height: 3rem; font-size: 1.5rem;">请输入菜谱名称</p>
+                <p class="input" @click="modeldj2">{{model2}}</p>
+                <p style="height: 3rem; line-height: 3rem; font-size: 1.5rem; text-align: left; font-weight: bold;">
+                    菜谱三</p>
+                <p style="height: 3rem; line-height: 3rem; font-size: 1.5rem;">请输入菜谱名称</p>
+                <p class="input" @click="modeldj3">{{model3}}</p>
+                <p style="height: 3rem; line-height: 3rem; font-size: 1.5rem; text-align: left; font-weight: bold;">
+                    菜谱四</p>
+                <p style="height: 3rem; line-height: 3rem; font-size: 1.5rem;">请输入菜谱名称</p>
+                <p class="input" @click="modeldj4">{{model4}}</p>
+                <div style="margin-top: 3rem; width: 100%; height: 3rem; text-align: left;">
+                    <button style="width: 80%; height: 3rem; font-size: 1.5rem;" @click="qrcpu">确认菜谱</button>
+                </div>
+            </div>
+            <div style="width: 40%; float: left; text-align: center;" :style="wcgdszhi">
+                <div style="margin: 0 auto; width: 80%; background-color: #ecf5ff; overflow: auto; border-radius: 1rem;"
+                    :style="hxkgdu">
+                    <p style="height: 5rem; line-height: 5rem; text-align: center; background-color: #337ecc;">
+                        <input type="text"
+                            style="outline: 0px; border: 0px; width: 80%; height: 3rem; line-height: 3rem; font-size: 1.5rem; text-align: center;"
+                            v-model="hxcpjsuo">
+                    </p>
+                    <p
+                        style="height: 3rem; line-height: 3rem; font-size: 1.5rem; text-align: center; background-color: #337ecc; color: #ecf5ff;">
+                        候选框</p>
+                    <div style="width: 100%; height: 3rem;" v-for="(item, index) in hxlbiao" :key="index"
+                        @click="cpxze(index)">
+                        <p class="hxkxqing">{{ item }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    app = {
+        data() {
+            return {
+                clqdxshi: false,
+                // 外层高度设置
+                wcgdszhi: {
+                    height: '',
+                },
+                // 候选框高度
+                hxkgdu: {
+                    marginTop: '',
+                    height: '',
+                },
+                // 候选列表
+                hxlbiao: [],
+                // 菜谱一
+                model1: '',
+                // 菜谱二
+                model2: '',
+                // 菜谱三
+                model3: '',
+                // 菜谱四
+                model4: '',
+                // 选中的菜谱
+                xzdcpu: [],
+                // 输入框扫描
+                srksmiao: [],
+                // 获取已加入的菜谱
+                yjrcpu: [],
+                // 候选菜谱实时检索
+                hxcpjsuo: '',
+            }
+        },
+        beforeMount() {
+            // 获取屏幕高度
+            this.wcgdszhi.height = window.innerHeight + 'px';
+            // 设置候选框上边距
+            this.hxkgdu.marginTop = window.innerHeight * 0.1 + 'px';
+            // 设置候选框高度
+            this.hxkgdu.height = window.innerHeight * 0.8 + 'px';
+        },
+        mounted() {
+            axios.post('/hqcplbiao').then(res => {
+                this.hxlbiao = res.data;
+            });
+            axios.post('/yjrcpuljie').then(res => {
+                this.yjrcpu = res.data;
+                switch (this.yjrcpu.length) {
+                    case 1:
+                        this.model1 = this.yjrcpu[0];
+                        break;
+                    case 2:
+                        this.model1 = this.yjrcpu[0];
+                        this.model2 = this.yjrcpu[1];
+                        break;
+                    case 3:
+                        this.model1 = this.yjrcpu[0];
+                        this.model2 = this.yjrcpu[1];
+                        this.model3 = this.yjrcpu[2];
+                        break;
+                    case 4:
+                        this.model1 = this.yjrcpu[0];
+                        this.model2 = this.yjrcpu[1];
+                        this.model3 = this.yjrcpu[2];
+                        this.model4 = this.yjrcpu[3];
+                        break;
+                    default:
+                        break;
+                };
+                for (let index = 0; index < this.yjrcpu.length; index++) {
+                    if (this.hxlbiao.indexOf(this.yjrcpu[index]) != -1) {
+                        this.hxlbiao.splice(this.hxlbiao.indexOf(this.yjrcpu[index]), 1);
+                    }
+                }
+            });
+        },
+        methods: {
+            cpxze(index) {
+                if (this.model1 == '') {
+                    this.model1 = this.hxlbiao[index];
+                    this.hxlbiao.splice(index, 1);
+                } else if (this.model2 == '') {
+                    this.model2 = this.hxlbiao[index];
+                    this.hxlbiao.splice(index, 1);
+                } else if (this.model3 == '') {
+                    this.model3 = this.hxlbiao[index];
+                    this.hxlbiao.splice(index, 1);
+                } else if (this.model4 == '') {
+                    this.model4 = this.hxlbiao[index];
+                    this.hxlbiao.splice(index, 1);
+                } else if (this.model1 != '' && this.model2 != '' && this.model3 != '' && this.model4 != '') {
+                    alert('菜谱已满！');
+                }
+            },
+            // 已选择菜谱数据库删除
+            yxzcpsjkschu(a) {
+                axios.post('/yxzcpsjkschuang', {
+                    cpmc: a,
+                }).then(res => {
+                    console.log(res.data);
+                });
+            },
+            // 已选择菜谱删除
+            modeldj1() {
+                if (this.model1 != '') {
+                    this.hxlbiao.push(this.model1);
+                    this.yxzcpsjkschu(this.model1);
+                    this.model1 = '';
+                } else {
+                    alert('选择框为空！');
+                }
+            },
+            modeldj2() {
+                if (this.model2 != '') {
+                    this.hxlbiao.push(this.model2);
+                    this.yxzcpsjkschu(this.model2);
+                    this.model2 = '';
+                } else {
+                    alert('选择框为空！');
+                }
+            },
+            modeldj3() {
+                if (this.model3 != '') {
+                    this.hxlbiao.push(this.model3);
+                    this.yxzcpsjkschu(this.model3);
+                    this.model3 = '';
+                } else {
+                    alert('选择框为空！');
+                }
+            },
+            modeldj4() {
+                if (this.model4 != '') {
+                    this.hxlbiao.push(this.model4);
+                    this.yxzcpsjkschu(this.model4);
+                    this.model4 = '';
+                } else {
+                    alert('选择框为空！');
+                }
+            },
+            qrcpu() {
+                if (this.model1 == '' && this.model2 == '' && this.model3 == '' && this.model4 == '') {
+                    alert('未选择菜谱！');
+                } else {
+                    this.srksmiao.push(this.model1);
+                    this.srksmiao.push(this.model2);
+                    this.srksmiao.push(this.model3);
+                    this.srksmiao.push(this.model4);
+                    for (let index = 0; index < this.srksmiao.length; index++) {
+                        if (this.srksmiao[index].length > 0) {
+                            this.xzdcpu.push(this.srksmiao[index]);
+                        } else {
+                            console.log('菜谱为空！');
+                        }
+                    }
+                }
+                axios.post('/hqcliao', {
+                    xzdcpu: this.xzdcpu
+                }).then(res => {
+                    window.location.href = '/clqdan';
+                })
+            }
+        },
+        watch: {
+            hxcpjsuo(newVal, oldVal) {
+                if (newVal != oldVal) {
+                    axios.post('/ssjsuo', {
+                        jsuo: newVal
+                    }).then(res => {
+                        this.hxlbiao = res.data;
+                        console.log(this.hxlbiao);
+                    });
+                }
+            }
+        }
+    }
+
+    Vue.createApp(app).mount('#app');
+</script>
+
+</html>
+{% endverbatim %}

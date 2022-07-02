@@ -1,0 +1,652 @@
+{% verbatim %}
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增菜谱 — 菜谱管理系统</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.36/vue.global.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .tableinput {
+            border: none;
+            outline: none;
+            text-align: center;
+            width: 100%;
+            height: 2rem;
+            font-size: 1rem;
+        }
+
+        tr {
+            border-bottom: 0.1rem solid #ccc;
+        }
+
+        th {
+            height: 3rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        td {
+            height: 2rem;
+            line-height: 2rem;
+            font-size: 1.2rem;
+            text-align: center;
+            border-radius: 0.6rem;
+            overflow: hidden;
+        }
+
+        textarea {
+            border-radius: 0.6rem;
+        }
+    </style>
+</head>
+
+<body id="app">
+    <div style="width: 100%; background-color: #d9ecff; overflow: auto;" :style="zwcgdszhi">
+        <div style="margin: 0 auto; width: 90%;" :style="d1cgdszhi">
+            <h1 style="height: 3rem; font-size: 2rem; font-weight: bold;">新增菜谱</h1>
+            <div style="width: 100%; height: 4rem;">
+                <div style="width: 50%; height: 4rem; line-height: 4rem; font-size: 1.5rem; float: left;">
+                    菜谱名称：<input type="text" style="height: 2rem; font-size: 1.5rem; text-align: center;"
+                        v-model="cpmcheng">
+                </div>
+                <div style="width: 50%; height: 4rem; line-height: 4rem; float: left;">
+                    <div style="width: 50%; height: 4rem; line-height: 4rem; float: left; text-align: center;">
+                        <button style="width: 40%; height: 2rem; font-size: 1.2rem;" @click="xjcpu">新建菜谱</button>
+                    </div>
+                    <div style="width: 50%; height: 4rem; line-height: 4rem; float: left; text-align: center;">
+                        <button style="width: 40%; height: 2rem; font-size: 1.2rem;" @click="bcaipu">保存菜谱</button>
+                    </div>
+                </div>
+            </div>
+            <table style="width: 100%;">
+                <tr>
+                    <th style="font-size: 1.5rem;" colspan="3">主食材</th>
+                    <th style="font-size: 1.5rem;" colspan="3">佐料</th>
+                    <th style="font-size: 1.5rem;" colspan="3">调料</th>
+                </tr>
+                <tr>
+                    <td>类别</td>
+                    <td>名称</td>
+                    <td>数量</td>
+                    <td>类别</td>
+                    <td>名称</td>
+                    <td>数量</td>
+                    <td>类别</td>
+                    <td>名称</td>
+                    <td>数量</td>
+                </tr>
+                <tr>
+                    <td>主食材</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zscmcheng[0]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zsczliang[0]">
+                    </td>
+                    <td>佐料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlmcheng[0]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlzliang[0]">
+                    </td>
+                    <td>调料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlmcheng[0]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlzliang[0]">
+                    </td>
+                </tr>
+                <tr>
+                    <td>主食材</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zscmcheng[1]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zsczliang[1]">
+                    </td>
+                    <td>佐料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlmcheng[1]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlzliang[1]">
+                    </td>
+                    <td>调料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlmcheng[1]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlzliang[1]">
+                    </td>
+                </tr>
+                <tr>
+                    <td>主食材</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zscmcheng[2]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zsczliang[2]">
+                    </td>
+                    <td>佐料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlmcheng[2]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlzliang[2]">
+                    </td>
+                    <td>调料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlmcheng[2]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlzliang[2]">
+                    </td>
+                </tr>
+                <tr>
+                    <td>主食材</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zscmcheng[3]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zsczliang[3]">
+                    </td>
+                    <td>佐料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlmcheng[3]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlzliang[3]">
+                    </td>
+                    <td>调料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlmcheng[3]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlzliang[3]">
+                    </td>
+                </tr>
+                <tr>
+                    <td>主食材</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zscmcheng[4]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zsczliang[4]">
+                    </td>
+                    <td>佐料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlmcheng[4]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlzliang[4]">
+                    </td>
+                    <td>调料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlmcheng[4]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlzliang[4]">
+                    </td>
+                </tr>
+                <tr>
+                    <td>主食材</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zscmcheng[5]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zsczliang[5]">
+                    </td>
+                    <td>佐料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlmcheng[5]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlzliang[5]">
+                    </td>
+                    <td>调料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlmcheng[5]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlzliang[5]">
+                    </td>
+                </tr>
+                <tr>
+                    <td>主食材</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zscmcheng[6]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zsczliang[6]">
+                    </td>
+                    <td>佐料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlmcheng[6]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlzliang[6]">
+                    </td>
+                    <td>调料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlmcheng[6]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlzliang[6]">
+                    </td>
+                </tr>
+                <tr>
+                    <td>主食材</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zscmcheng[7]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zsczliang[7]">
+                    </td>
+                    <td>佐料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlmcheng[7]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlzliang[7]">
+                    </td>
+                    <td>调料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlmcheng[7]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlzliang[7]">
+                    </td>
+                </tr>
+                <tr>
+                    <td>主食材</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zscmcheng[8]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zsczliang[8]">
+                    </td>
+                    <td>佐料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlmcheng[8]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlzliang[8]">
+                    </td>
+                    <td>调料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlmcheng[8]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlzliang[8]">
+                    </td>
+                </tr>
+                <tr>
+                    <td>主食材</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zscmcheng[9]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zsczliang[9]">
+                    </td>
+                    <td>佐料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlmcheng[9]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="zlzliang[9]">
+                    </td>
+                    <td>调料</td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlmcheng[9]">
+                    </td>
+                    <td>
+                        <input type="text" class="tableinput" v-model="tlzliang[9]">
+                    </td>
+                </tr>
+            </table>
+            <div style="width: 100%; height: 27.5rem;">
+                <div style="width: 50%; height: 27.5rem; float: left; text-align: center;">
+                    <h2
+                        style="height: 3rem; line-height: 3rem; font-size: 1.5rem; font-weight: bold; text-align: left;">
+                        准备步骤</h2>
+                    <textarea
+                        style="width: 90%; height: 24.5rem; font-size: 1.2rem; line-height: 1.5rem; resize: none; border: 0px; outline: 0px;"
+                        v-model="zhunbeibuzhou"></textarea>
+                </div>
+                <div style="width: 50%; height: 27.5rem; float: left;">
+                    <h2
+                        style="height: 3rem; line-height: 3rem; font-size: 1.5rem; font-weight: bold; text-align: left;">
+                        炒菜步骤</h2>
+                    <table style="width: 100%;">
+                        <tr>
+                            <th>步骤</th>
+                            <th>时间节点</th>
+                            <th>火力</th>
+                            <th>动作</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="sjiedian[0]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="hli[0]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="dzuo[0]">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="sjiedian[1]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="hli[1]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="dzuo[1]">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="sjiedian[2]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="hli[2]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="dzuo[2]">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="sjiedian[3]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="hli[3]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="dzuo[3]">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="sjiedian[4]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="hli[4]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="dzuo[4]">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="sjiedian[5]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="hli[5]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="dzuo[5]">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="sjiedian[6]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="hli[6]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="dzuo[6]">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="sjiedian[7]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="hli[7]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="dzuo[7]">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="sjiedian[8]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="hli[8]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="dzuo[8]">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="sjiedian[9]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="hli[9]">
+                            </td>
+                            <td>
+                                <input type="text" class="tableinput" v-model="dzuo[9]">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <h2 style="height: 3rem; line-height: 3rem; font-size: 1.5rem; font-weight: bold; text-align: left;">注意事项
+            </h2>
+            <div style="width: 100%; height: 24.5rem; text-align: center;">
+                <textarea
+                    style="width: 90%; height: 24.5rem; font-size: 1.2rem; line-height: 1.5rem; resize: none; border: 0px; outline: 0px;"
+                    v-model="zysxiang"></textarea>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    app = {
+        data() {
+            return {
+                zwcgdszhi: {
+                    height: '',
+                },
+                d1cgdszhi: {
+                    height: '',
+                },
+                cpmcheng: '',
+                zscmcheng: ['', '', '', '', '', '', '', '', '', ''],
+                zsczliang: ['', '', '', '', '', '', '', '', '', ''],
+                zlmcheng: ['', '', '', '', '', '', '', '', '', ''],
+                zlzliang: ['', '', '', '', '', '', '', '', '', ''],
+                tlmcheng: ['', '', '', '', '', '', '', '', '', ''],
+                tlzliang: ['', '', '', '', '', '', '', '', '', ''],
+                zhunbeibuzhou: '',
+                sjiedian: ['', '', '', '', '', '', '', '', '', ''],
+                hli: ['', '', '', '', '', '', '', '', '', ''],
+                dzuo: ['', '', '', '', '', '', '', '', '', ''],
+                zysxiang: '',
+                zscmchengarr: [],
+                zsczliangarr: [],
+                zlmchengarr: [],
+                zlzliangarr: [],
+                tlmchengarr: [],
+                tlzliangarr: [],
+                sjiedianarr: [],
+                hliarr: [],
+                dzuoarr: [],
+            }
+        },
+        beforeMount() {
+            this.zwcgdszhi.height = window.innerHeight + 'px';
+            this.d1cgdszhi.height = window.innerHeight * 0.9 + 'px';
+        },
+        methods: {
+            szqkong() {
+                this.zscmchengarr = [];
+                this.zsczliangarr = [];
+                this.zlmchengarr = [];
+                this.zlzliangarr = [];
+                this.tlmchengarr = [];
+                this.tlzliangarr = [];
+                this.sjiedianarr = [];
+                this.hliarr = [];
+                this.dzuoarr = [];
+            },
+            bcaipu() {
+                this.szqkong();
+                if (this.cpmcheng == '') {
+                    alert('请输入菜谱名称！');
+                } else {
+                    for (let index = 0; index < this.zsczliang.length; index++) {
+                        if (this.zsczliang[index] != '') {
+                            if (isNaN(this.zsczliang[index])) {
+                                this.szqkong();
+                                alert('主食材重量请输入数字！');
+                                break;
+                            } else {
+                                this.zscmchengarr.push(this.zscmcheng[index]);
+                                this.zsczliangarr.push(this.zsczliang[index]);
+                            }
+                        }
+                    };
+                    for (let index = 0; index < this.zlzliang.length; index++) {
+                        if (this.zlzliang[index] != '') {
+                            if (isNaN(this.zlzliang[index])) {
+                                this.szqkong();
+                                alert('佐料重量请输入数字！');
+                                break;
+                            } else {
+                                this.zlmchengarr.push(this.zlmcheng[index]);
+                                this.zlzliangarr.push(this.zlzliang[index]);
+                            }
+                        }
+                    };
+                    for (let index = 0; index < this.tlzliang.length; index++) {
+                        if (this.tlzliang[index] != '') {
+                            if (isNaN(this.tlzliang[index])) {
+                                this.szqkong();
+                                alert('调料重量请输入数字！');
+                                break;
+                            } else {
+                                this.tlmchengarr.push(this.tlmcheng[index]);
+                                this.tlzliangarr.push(this.tlzliang[index]);
+                            }
+                        }
+                    };
+                    for (let index = 0; index < this.sjiedian.length; index++) {
+                        if (this.sjiedian[index] != '') {
+                            if (isNaN(this.sjiedian[index]) || isNaN(this.hli[index])) {
+                                this.szqkong();
+                                alert('时间节点和火力请输入数字！');
+                                break;
+                            } else {
+                                this.sjiedianarr.push(this.sjiedian[index]);
+                                this.hliarr.push(this.hli[index]);
+                                this.dzuoarr.push(this.dzuo[index]);
+                            }
+                        }
+                    };
+                    if (this.zscmchengarr.length > 0 && this.zsczliangarr.length > 0 && this.zlmchengarr.length > 0 && this.zlzliangarr.length > 0 && this.tlmchengarr.length > 0 && this.tlzliangarr.length > 0 && this.sjiedianarr.length > 0 && this.hliarr.length > 0 && this.dzuoarr.length > 0) {
+                        if (this.zhunbeibuzhou != '' && this.zysxiang != '') {
+                            axios.post('/xzcpunrong', {
+                                cpmcheng: this.cpmcheng,
+                                zscmchengarr: this.zscmchengarr,
+                                zsczliangarr: this.zsczliangarr,
+                                zlmchengarr: this.zlmchengarr,
+                                zlzliangarr: this.zlzliangarr,
+                                tlmchengarr: this.tlmchengarr,
+                                tlzliangarr: this.tlzliangarr,
+                                sjiedianarr: this.sjiedianarr,
+                                hliarr: this.hliarr,
+                                dzuoarr: this.dzuoarr,
+                                zhunbeibuzhou: this.zhunbeibuzhou,
+                                zysxiang: this.zysxiang,
+                            }).then(res => {
+                                this.szqkong();
+                                alert(res.data);
+                            })
+                        } else {
+                            alert('准备步骤和注意事项不得为空！');
+                        }
+                    } else {
+                        alert('提交失败！');
+                    }
+                }
+            },
+            xjcpu() {
+                this.cpmcheng = '';
+                this.zscmcheng = ['', '', '', '', '', '', '', '', '', ''];
+                this.zsczliang = ['', '', '', '', '', '', '', '', '', ''];
+                this.zlmcheng = ['', '', '', '', '', '', '', '', '', ''];
+                this.zlzliang = ['', '', '', '', '', '', '', '', '', ''];
+                this.tlmcheng = ['', '', '', '', '', '', '', '', '', ''];
+                this.tlzliang = ['', '', '', '', '', '', '', '', '', ''];
+                this.zhunbeibuzhou = '';
+                this.sjiedian = ['', '', '', '', '', '', '', '', '', ''];
+                this.hli = ['', '', '', '', '', '', '', '', '', ''];
+                this.dzuo = ['', '', '', '', '', '', '', '', '', ''];
+                this.zysxiang = '';
+                this.szqkong();
+            },
+        },
+        mounted() {
+            axios.post('/cpglxzcpu').then(
+                (res) => {
+                    if (res.data == '没有数据') {
+                        console.log(res.data);
+                    } else {
+                        console.log(res.data);
+                        this.cpmcheng = res.data.b[0];
+                        for (let index = 0; index < res.data.b1.length; index++) {
+                            this.zscmcheng[index] = res.data.b1[index];
+                            this.zsczliang[index] = res.data.b2[index];
+                        };
+                        for (let index = 0; index < res.data.b3.length; index++) {
+                            this.zlmcheng[index] = res.data.b3[index];
+                            this.zlzliang[index] = res.data.b4[index];
+                        };
+                        for (let index = 0; index < res.data.b5.length; index++) {
+                            this.tlmcheng[index] = res.data.b5[index];
+                            this.tlzliang[index] = res.data.b6[index];
+                        };
+                        this.zhunbeibuzhou = res.data.b7[0];
+                        for (let index = 0; index < res.data.b8.length; index++) {
+                            this.sjiedian[index] = res.data.b8[index];
+                            this.hli[index] = res.data.b9[index];
+                            this.dzuo[index] = res.data.b10[index];
+                        };
+                        this.zysxiang = res.data.b11[0];
+                    }
+                })
+        },
+    }
+    Vue.createApp(app).mount('#app')
+</script>
+
+</html>
+{% endverbatim %}

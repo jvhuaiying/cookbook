@@ -1,0 +1,105 @@
+{% verbatim %}
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理页面</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.37/vue.global.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .parent {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            grid-column-gap: 0px;
+            grid-row-gap: 0px;
+        }
+
+        .div1 {
+            grid-area: 2 / 1 / 3 / 3;
+            place-self: center;
+        }
+
+        .div2 {
+            grid-area: 2 / 4 / 3 / 6;
+            place-self: center;
+        }
+
+        .div3 {
+            grid-area: 2 / 7 / 3 / 9;
+            place-self: center;
+        }
+
+        .div4 {
+            grid-area: 3 / 1 / 4 / 3;
+            place-self: center;
+        }
+
+        .div5 {
+            grid-area: 3 / 4 / 4 / 6;
+            place-self: center;
+        }
+
+        .div6 {
+            grid-area: 3 / 7 / 4 / 9;
+            place-self: center;
+        }
+    </style>
+</head>
+
+<body id="app">
+    <div class="parent" style="background-color: #d9ecff;" :style="wcgdszhi">
+        <div class="div1" style="text-align: center;" :style="[fkuaikuandszhi,fkgdszhi]">
+            <a href="/xzcpu" target="_blank"><button style="width: 60%; height: 50%; font-size: 2rem;">新增菜谱</button></a>
+        </div>
+        <div class="div2" style="text-align: center;" :style="[fkuaikuandszhi,fkgdszhi]">
+            <h1 style="font-size: 2.6rem;">菜&ensp;谱&ensp;管&ensp;理&ensp;系&ensp;统</h1>
+        </div>
+        <div class="div3" style="text-align: center;" :style="[fkuaikuandszhi,fkgdszhi]">
+            <a href="clqdan" target="_blank"><button style="width: 60%; height: 50%; font-size: 2rem;">材料清单</button></a>
+        </div>
+        <div class="div4" style="text-align: center;" :style="[fkuaikuandszhi,fkgdszhi]">
+            <a href="chaocaiymian" target="_blank"><button style="width: 60%; height: 50%; font-size: 2rem;">开始炒菜</button></a>
+        </div>
+        <div class="div5" style="text-align: center;" :style="[fkuaikuandszhi,fkgdszhi]">
+            <a href="cpxze" target="_blank"><button style="width: 60%; height: 50%; font-size: 2rem;">菜谱选择</button></a>
+        </div>
+        <div class="div6" style="text-align: center;" :style="[fkuaikuandszhi,fkgdszhi]">
+            <a href="/cpgli" target="_blank"><button style="width: 60%; height: 50%; font-size: 2rem;">菜谱管理</button></a>
+        </div>
+    </div>
+</body>
+<script>
+    app = {
+        data() {
+            return {
+                wcgdszhi: {
+                    height: '',
+                },
+                fkuaikuandszhi: {
+                    width: '',
+                },
+                fkgdszhi: {
+                    height: '',
+                },
+            }
+        },
+        beforeMount() {
+            this.wcgdszhi.height = window.innerHeight + 'px';
+            this.fkuaikuandszhi.width = window.innerWidth * 0.25 + 'px';
+            this.fkgdszhi.height = window.innerHeight * 0.3 + 'px';
+        },
+    }
+    Vue.createApp(app).mount('#app')
+</script>
+
+</html>
+{% endverbatim %}

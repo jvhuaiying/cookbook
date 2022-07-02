@@ -1,0 +1,681 @@
+{% verbatim %}
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>材料清单</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.37/vue.global.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .parent {
+            display: grid;
+            grid-template-columns: repeat(11, 1fr);
+            grid-template-rows: repeat(11, 1fr);
+            grid-column-gap: 0px;
+            grid-row-gap: 0px;
+            background-color: #409EFF;
+        }
+
+        .div1 {
+            grid-area: 3 / 7 / 6 / 11;
+        }
+
+        .div2 {
+            grid-area: 8 / 7 / 11 / 11;
+        }
+
+        .div3 {
+            grid-area: 3 / 2 / 6 / 6;
+        }
+
+        .div4 {
+            grid-area: 8 / 2 / 11 / 6;
+        }
+
+        .div5 {
+            grid-area: 2 / 2 / 3 / 3;
+            place-self: center;
+        }
+
+        .div6 {
+            grid-area: 2 / 3 / 3 / 4;
+            place-self: center;
+        }
+
+        .div7 {
+            grid-area: 2 / 5 / 3 / 6;
+            place-self: center;
+        }
+
+        .div8 {
+            grid-area: 2 / 7 / 3 / 8;
+            place-self: center;
+        }
+
+        .div9 {
+            grid-area: 2 / 8 / 3 / 9;
+            place-self: center;
+        }
+
+        .div10 {
+            grid-area: 2 / 10 / 3 / 11;
+            place-self: center;
+        }
+
+        .div11 {
+            grid-area: 7 / 7 / 8 / 8;
+            place-self: center;
+        }
+
+        .div12 {
+            grid-area: 7 / 8 / 8 / 9;
+            place-self: center;
+        }
+
+        .div13 {
+            grid-area: 7 / 10 / 8 / 11;
+            place-self: center;
+        }
+
+        .div14 {
+            grid-area: 7 / 2 / 8 / 3;
+            place-self: center;
+        }
+
+        .div15 {
+            grid-area: 7 / 3 / 8 / 4;
+            place-self: center;
+        }
+
+        .div16 {
+            grid-area: 7 / 5 / 8 / 6;
+            place-self: center;
+        }
+
+        .div17 {
+            grid-area: 2 / 4 / 3 / 5;
+            place-self: center;
+        }
+
+        .div18 {
+            grid-area: 2 / 9 / 3 / 10;
+            place-self: center;
+        }
+
+        .div19 {
+            grid-area: 7 / 4 / 8 / 5;
+            place-self: center;
+        }
+
+        .div20 {
+            grid-area: 7 / 9 / 8 / 10;
+            place-self: center;
+        }
+
+        input {
+            width: 100%;
+            height: 3rem;
+            border-radius: 1rem;
+            text-align: center;
+            font-size: 1.5rem;
+            outline: 0px;
+            border: 0px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100%;
+            outline: 0px;
+            resize: none;
+            border: 0px;
+            font-size: 1.2rem;
+            line-height: 2rem;
+            overflow: auto;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body id="app">
+    <div class="parent" :style="wcgdszhi">
+        <div class="div1">
+            <div style="width: 100%; height: 17rem; background-color: #ecf5ff; overflow: auto;" v-html="something1">
+            </div>
+        </div>
+        <div class="div2">
+            <div style="width: 100%; height: 17rem; background-color: #ecf5ff; overflow: auto;" v-html="something3">
+            </div>
+        </div>
+        <div class="div3">
+            <div style="width: 100%; height: 17rem; background-color: #ecf5ff; overflow: auto;" v-html="something0">
+            </div>
+        </div>
+        <div class="div4">
+            <div style="width: 100%; height: 17rem; background-color: #ecf5ff; overflow: auto;" v-html="something2">
+            </div>
+        </div>
+        <div class="div5">
+            <p style="font-size: 1.2rem; color: #ecf5ff; font-weight: bold;">
+                {{ cpmcheng0 }}
+            </p>
+        </div>
+        <div class="div6">
+            <input type="text" v-model="jcrshu0">
+        </div>
+        <div class="div7">
+            <button style="width: 6rem; height: 3rem; font-size: 1rem;" @click="kschaocai">开始炒菜</button>
+        </div>
+        <div class="div8">
+            <p style="font-size: 1.2rem; color: #ecf5ff; font-weight: bold;">
+                {{ cpmcheng1 }}
+            </p>
+        </div>
+        <div class="div9">
+            <input type="text" v-model="jcrshu1">
+        </div>
+        <div class="div10">
+            <button style="width: 6rem; height: 3rem; font-size: 1rem;" @click="kschaocai">开始炒菜</button>
+        </div>
+        <div class="div11">
+            <p style="font-size: 1.2rem; color: #ecf5ff; font-weight: bold;">
+                {{ cpmcheng3 }}
+            </p>
+        </div>
+        <div class="div12">
+            <input type="text" v-model="jcrshu3">
+        </div>
+        <div class="div13">
+            <button style="width: 6rem; height: 3rem; font-size: 1rem;" @click="kschaocai">开始炒菜</button>
+        </div>
+        <div class="div14">
+            <p style="font-size: 1.2rem; color: #ecf5ff; font-weight: bold;">
+                {{ cpmcheng2 }}
+            </p>
+        </div>
+        <div class="div15">
+            <input type="text" v-model="jcrshu2">
+        </div>
+        <div class="div16">
+            <button style="width: 6rem; height: 3rem; font-size: 1rem;" @click="kschaocai">开始炒菜</button>
+        </div>
+        <div class="div17">
+            <button style="width: 6rem; height: 3rem; font-size: 1rem;" @click="zbzhouaniu0">准备步骤</button>
+        </div>
+        <div class="div18">
+            <button style="width: 6rem; height: 3rem; font-size: 1rem;" @click="zbzhouaniu1">准备步骤</button>
+        </div>
+        <div class="div19">
+            <button style="width: 6rem; height: 3rem; font-size: 1rem;" @click="zbzhouaniu2">准备步骤</button>
+        </div>
+        <div class="div20">
+            <button style="width: 6rem; height: 3rem; font-size: 1rem;" @click="zbzhouaniu3">准备步骤</button>
+        </div>
+    </div>
+</body>
+<script>
+    app = {
+        data() {
+            return {
+                wcgdszhi: {
+                    height: "100%",
+                },
+                zscmcheng1: [],
+                zscmcheng2: [],
+                zscmcheng3: [],
+                zscmcheng4: [],
+                zsczliang1: [],
+                zsczliang2: [],
+                zsczliang3: [],
+                zsczliang4: [],
+                zlcmcheng1: [],
+                zlcmcheng2: [],
+                zlcmcheng3: [],
+                zlcmcheng4: [],
+                tlcmcheng1: [],
+                tlcmcheng2: [],
+                tlcmcheng3: [],
+                tlcmcheng4: [],
+                zbzhou1: [],
+                zbzhou2: [],
+                zbzhou3: [],
+                zbzhou4: [],
+                cpmcheng0: '',
+                cpmcheng1: '',
+                cpmcheng2: '',
+                cpmcheng3: '',
+                something0: '',
+                something1: '',
+                something2: '',
+                something3: '',
+                jcrshu0: '',
+                jcrshu1: '',
+                jcrshu2: '',
+                jcrshu3: '',
+            }
+        },
+        methods: {
+            zbzhouaniu0() {
+                a = window.open('', '', 'width=400,height=400');
+                b = this.zbzhou1[0];
+                c = b.split('\n');
+                d = [];
+                for (i = 0; i < c.length; i++) {
+                    d.push(c[i]);
+                }
+                e = '<h2>' + this.cpmcheng0 + '</h2>';
+                for (i = 0; i < d.length; i++) {
+                    e += '<p>' + d[i] + '</p>';
+                }
+                a.document.write(e);
+            },
+            zbzhouaniu1() {
+                a = window.open('', '', 'width=400,height=400');
+                b = this.zbzhou2[0];
+                c = b.split('\n');
+                d = [];
+                for (i = 0; i < c.length; i++) {
+                    d.push(c[i]);
+                }
+                e = '<h2>' + this.cpmcheng1 + '</h2>';
+                for (i = 0; i < d.length; i++) {
+                    e += '<p>' + d[i] + '</p>';
+                }
+                a.document.write(e);
+            },
+            zbzhouaniu2() {
+                a = window.open('', '', 'width=400,height=400');
+                b = this.zbzhou3[0];
+                c = b.split('\n');
+                d = [];
+                for (i = 0; i < c.length; i++) {
+                    d.push(c[i]);
+                }
+                e = '<h2>' + this.cpmcheng2 + '</h2>';
+                for (i = 0; i < d.length; i++) {
+                    e += '<p>' + d[i] + '</p>';
+                }
+                a.document.write(e);
+            },
+            zbzhouaniu3() {
+                a = window.open('', '', 'width=400,height=400');
+                b = this.zbzhou4[0];
+                c = b.split('\n');
+                d = [];
+                for (i = 0; i < c.length; i++) {
+                    d.push(c[i]);
+                }
+                e = '<h2>' + this.cpmcheng3 + '</h2>';
+                for (i = 0; i < d.length; i++) {
+                    e += '<p>' + d[i] + '</p>';
+                }
+                a.document.write(e);
+            },
+
+            kschaocai() {
+                window.open('/chaocaiymian');
+            }
+        },
+        beforeMount() {
+            this.wcgdszhi.height = window.innerHeight + "px";
+            axios.get('/getclqdan').then(res => {
+                console.log(res.data.cpmcheng.length);
+                switch (res.data.cpmcheng.length) {
+                    case 1:
+                        this.cpmcheng0 = res.data.cpmcheng[0];
+                        this.zscmcheng1 = res.data.zscmcheng1;
+                        this.zlcmcheng1 = res.data.zlcmcheng1;
+                        this.tlcmcheng1 = res.data.tlcmcheng1;
+                        this.zsczliang1 = res.data.zsczliang1;
+                        this.zlczliang1 = res.data.zlczliang1;
+                        this.tlczliang1 = res.data.tlczliang1;
+                        this.zbzhou1 = res.data.zbzhou1;
+                        this.something0 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < res.data.zscmcheng1.length; index++) {
+                            this.something0 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zscmcheng1[index] + res.data.zsczliang1[index] + '</p>';
+                        }
+                        this.something0 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < res.data.zlcmcheng1.length; index++) {
+                            this.something0 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zlcmcheng1[index] + res.data.zlczliang1[index] + '</p>';
+                        }
+                        this.something0 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < res.data.tlcmcheng1.length; index++) {
+                            this.something0 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.tlcmcheng1[index] + res.data.tlczliang1[index] + '</p>';
+                        }
+                        this.cpmcheng1 = '不存在';
+                        this.cpmcheng2 = '不存在';
+                        this.cpmcheng3 = '不存在';
+                        break;
+                    case 2:
+                        this.cpmcheng0 = res.data.cpmcheng[0];
+                        this.zscmcheng1 = res.data.zscmcheng1;
+                        this.zlcmcheng1 = res.data.zlcmcheng1;
+                        this.tlcmcheng1 = res.data.tlcmcheng1;
+                        this.zsczliang1 = res.data.zsczliang1;
+                        this.zlczliang1 = res.data.zlczliang1;
+                        this.tlczliang1 = res.data.tlczliang1;
+                        this.zbzhou1 = res.data.zbzhou1;
+                        this.something0 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < res.data.zscmcheng1.length; index++) {
+                            this.something0 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zscmcheng1[index] + res.data.zsczliang1[index] + '</p>';
+                        }
+                        this.something0 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < res.data.zlcmcheng1.length; index++) {
+                            this.something0 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zlcmcheng1[index] + res.data.zlczliang1[index] + '</p>';
+                        }
+                        this.something0 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < res.data.tlcmcheng1.length; index++) {
+                            this.something0 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.tlcmcheng1[index] + res.data.tlczliang1[index] + '</p>';
+                        }
+                        this.cpmcheng1 = res.data.cpmcheng[1];
+                        this.zscmcheng2 = res.data.zscmcheng2;
+                        this.zlcmcheng2 = res.data.zlcmcheng2;
+                        this.tlcmcheng2 = res.data.tlcmcheng2;
+                        this.zsczliang2 = res.data.zsczliang2;
+                        this.zlczliang2 = res.data.zlczliang2;
+                        this.tlczliang2 = res.data.tlczliang2;
+                        this.zbzhou2 = res.data.zbzhou2;
+                        this.something1 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < res.data.zscmcheng2.length; index++) {
+                            this.something1 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zscmcheng2[index] + res.data.zsczliang2[index] + '</p>';
+                        }
+                        this.something1 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < res.data.zlcmcheng2.length; index++) {
+                            this.something1 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zlcmcheng2[index] + res.data.zlczliang2[index] + '</p>';
+                        }
+                        this.something1 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < res.data.tlcmcheng2.length; index++) {
+                            this.something1 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.tlcmcheng2[index] + res.data.tlczliang2[index] + '</p>';
+                        }
+                        this.cpmcheng2 = '不存在';
+                        this.cpmcheng3 = '不存在';
+                        break;
+                    case 3:
+                        this.cpmcheng0 = res.data.cpmcheng[0];
+                        this.zscmcheng1 = res.data.zscmcheng1;
+                        this.zlcmcheng1 = res.data.zlcmcheng1;
+                        this.tlcmcheng1 = res.data.tlcmcheng1;
+                        this.zsczliang1 = res.data.zsczliang1;
+                        this.zlczliang1 = res.data.zlczliang1;
+                        this.tlczliang1 = res.data.tlczliang1;
+                        this.zbzhou1 = res.data.zbzhou1;
+                        this.something0 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < res.data.zscmcheng1.length; index++) {
+                            this.something0 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zscmcheng1[index] + res.data.zsczliang1[index] + '</p>';
+                        }
+                        this.something0 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < res.data.zlcmcheng1.length; index++) {
+                            this.something0 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zlcmcheng1[index] + res.data.zlczliang1[index] + '</p>';
+                        }
+                        this.something0 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < res.data.tlcmcheng1.length; index++) {
+                            this.something0 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.tlcmcheng1[index] + res.data.tlczliang1[index] + '</p>';
+                        }
+                        this.cpmcheng1 = res.data.cpmcheng[1];
+                        this.zscmcheng2 = res.data.zscmcheng2;
+                        this.zlcmcheng2 = res.data.zlcmcheng2;
+                        this.tlcmcheng2 = res.data.tlcmcheng2;
+                        this.zsczliang2 = res.data.zsczliang2;
+                        this.zlczliang2 = res.data.zlczliang2;
+                        this.tlczliang2 = res.data.tlczliang2;
+                        this.zbzhou2 = res.data.zbzhou2;
+                        this.something1 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < res.data.zscmcheng2.length; index++) {
+                            this.something1 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zscmcheng2[index] + res.data.zsczliang2[index] + '</p>';
+                        }
+                        this.something1 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < res.data.zlcmcheng2.length; index++) {
+                            this.something1 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zlcmcheng2[index] + res.data.zlczliang2[index] + '</p>';
+                        }
+                        this.something1 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < res.data.tlcmcheng2.length; index++) {
+                            this.something1 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.tlcmcheng2[index] + res.data.tlczliang2[index] + '</p>';
+                        }
+                        this.cpmcheng2 = res.data.cpmcheng[2];
+                        this.zscmcheng3 = res.data.zscmcheng3;
+                        this.zlcmcheng3 = res.data.zlcmcheng3;
+                        this.tlcmcheng3 = res.data.tlcmcheng3;
+                        this.zsczliang3 = res.data.zsczliang3;
+                        this.zlczliang3 = res.data.zlczliang3;
+                        this.tlczliang3 = res.data.tlczliang3;
+                        this.zbzhou3 = res.data.zbzhou3;
+                        this.something2 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < res.data.zscmcheng3.length; index++) {
+                            this.something2 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zscmcheng3[index] + res.data.zsczliang3[index] + '</p>';
+                        }
+                        this.something2 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < res.data.zlcmcheng3.length; index++) {
+                            this.something2 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zlcmcheng3[index] + res.data.zlczliang3[index] + '</p>';
+                        }
+                        this.something2 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < res.data.tlcmcheng3.length; index++) {
+                            this.something2 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.tlcmcheng3[index] + res.data.tlczliang3[index] + '</p>';
+                        }
+                        this.cpmcheng3 = '不存在';
+                        break;
+                    case 4:
+                        this.cpmcheng0 = res.data.cpmcheng[0];
+                        this.zscmcheng1 = res.data.zscmcheng1;
+                        this.zlcmcheng1 = res.data.zlcmcheng1;
+                        this.tlcmcheng1 = res.data.tlcmcheng1;
+                        this.zsczliang1 = res.data.zsczliang1;
+                        this.zlczliang1 = res.data.zlczliang1;
+                        this.tlczliang1 = res.data.tlczliang1;
+                        this.zbzhou1 = res.data.zbzhou1;
+                        this.something0 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < res.data.zscmcheng1.length; index++) {
+                            this.something0 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zscmcheng1[index] + res.data.zsczliang1[index] + '</p>';
+                        }
+                        this.something0 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < res.data.zlcmcheng1.length; index++) {
+                            this.something0 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zlcmcheng1[index] + res.data.zlczliang1[index] + '</p>';
+                        }
+                        this.something0 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < res.data.tlcmcheng1.length; index++) {
+                            this.something0 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.tlcmcheng1[index] + res.data.tlczliang1[index] + '</p>';
+                        }
+                        this.cpmcheng1 = res.data.cpmcheng[1];
+                        this.zscmcheng2 = res.data.zscmcheng2;
+                        this.zlcmcheng2 = res.data.zlcmcheng2;
+                        this.tlcmcheng2 = res.data.tlcmcheng2;
+                        this.zsczliang2 = res.data.zsczliang2;
+                        this.zlczliang2 = res.data.zlczliang2;
+                        this.tlczliang2 = res.data.tlczliang2;
+                        this.zbzhou2 = res.data.zbzhou2;
+                        this.something1 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < res.data.zscmcheng2.length; index++) {
+                            this.something1 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zscmcheng2[index] + res.data.zsczliang2[index] + '</p>';
+                        }
+                        this.something1 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < res.data.zlcmcheng2.length; index++) {
+                            this.something1 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zlcmcheng2[index] + res.data.zlczliang2[index] + '</p>';
+                        }
+                        this.something1 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < res.data.tlcmcheng2.length; index++) {
+                            this.something1 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.tlcmcheng2[index] + res.data.tlczliang2[index] + '</p>';
+                        }
+                        this.cpmcheng2 = res.data.cpmcheng[2];
+                        this.zscmcheng3 = res.data.zscmcheng3;
+                        this.zlcmcheng3 = res.data.zlcmcheng3;
+                        this.tlcmcheng3 = res.data.tlcmcheng3;
+                        this.zsczliang3 = res.data.zsczliang3;
+                        this.zlczliang3 = res.data.zlczliang3;
+                        this.tlczliang3 = res.data.tlczliang3;
+                        this.zbzhou3 = res.data.zbzhou3;
+                        this.something2 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < res.data.zscmcheng3.length; index++) {
+                            this.something2 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zscmcheng3[index] + res.data.zsczliang3[index] + '</p>';
+                        }
+                        this.something2 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < res.data.zlcmcheng3.length; index++) {
+                            this.something2 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zlcmcheng3[index] + res.data.zlczliang3[index] + '</p>';
+                        }
+                        this.something2 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < res.data.tlcmcheng3.length; index++) {
+                            this.something2 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.tlcmcheng3[index] + res.data.tlczliang3[index] + '</p>';
+                        }
+                        this.cpmcheng3 = res.data.cpmcheng[3];
+                        this.zscmcheng4 = res.data.zscmcheng4;
+                        this.zlcmcheng4 = res.data.zlcmcheng4;
+                        this.tlcmcheng4 = res.data.tlcmcheng4;
+                        this.zsczliang4 = res.data.zsczliang4;
+                        this.zlczliang4 = res.data.zlczliang4;
+                        this.tlczliang4 = res.data.tlczliang4;
+                        this.zbzhou4 = res.data.zbzhou4;
+                        this.something3 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < res.data.zscmcheng4.length; index++) {
+                            this.something3 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zscmcheng4[index] + res.data.zsczliang4[index] + '</p>';
+                        }
+                        this.something3 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < res.data.zlcmcheng4.length; index++) {
+                            this.something3 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.zlcmcheng4[index] + res.data.zlczliang4[index] + '</p>';
+                        }
+                        this.something3 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < res.data.tlcmcheng4.length; index++) {
+                            this.something3 += '<p style="color:black; text-align: center; height:2rem; line-height:2rem; font-size:1.2rem;">' + res.data.tlcmcheng4[index] + res.data.tlczliang4[index] + '</p>';
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            });
+        },
+        watch: {
+            jcrshu0: function (newVal, oldVal) {
+                if (newVal != oldVal) {
+                    if (Number(newVal) > 0) {
+                        this.something0 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < this.zscmcheng1.length; index++) {
+                            this.something0 += this.zscmcheng1[index] + (Number(this.zsczliang1[index]) * Number(newVal)) + '\n';
+                        }
+                        this.something0 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < this.zlcmcheng1.length; index++) {
+                            this.something0 += this.zlcmcheng1[index] + (Number(this.zlczliang1[index]) * Number(newVal)) + '\n';
+                        }
+                        this.something0 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < this.tlcmcheng1.length; index++) {
+                            this.something0 += this.tlcmcheng1[index] + (Number(this.tlczliang1[index]) * Number(newVal)) + '\n';
+                        }
+                    } else {
+                        this.something0 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < this.zscmcheng1.length; index++) {
+                            this.something0 += this.zscmcheng1[index] + this.zsczliang1[index] + '\n';
+                        }
+                        this.something0 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < this.zlcmcheng1.length; index++) {
+                            this.something0 += this.zlcmcheng1[index] + this.zlczliang1[index] + '\n';
+                        }
+                        this.something0 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < this.tlcmcheng1.length; index++) {
+                            this.something0 += this.tlcmcheng1[index] + this.tlczliang1[index] + '\n';
+                        }
+                    }
+                }
+            },
+            jcrshu1: function (newVal, oldVal) {
+                if (newVal != oldVal) {
+                    if (Number(newVal) > 0) {
+                        this.something1 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < this.zscmcheng2.length; index++) {
+                            this.something1 += this.zscmcheng2[index] + (Number(this.zsczliang2[index]) * Number(newVal)) + '\n';
+                        }
+                        this.something1 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < this.zlcmcheng2.length; index++) {
+                            this.something1 += this.zlcmcheng2[index] + (Number(this.zlczliang2[index]) * Number(newVal)) + '\n';
+                        }
+                        this.something1 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < this.tlcmcheng2.length; index++) {
+                            this.something1 += this.tlcmcheng2[index] + (Number(this.tlczliang2[index]) * Number(newVal)) + '\n';
+                        }
+                    } else {
+                        this.something1 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < this.zscmcheng2.length; index++) {
+                            this.something1 += this.zscmcheng2[index] + this.zsczliang2[index] + '\n';
+                        }
+                        this.something1 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < this.zlcmcheng2.length; index++) {
+                            this.something1 += this.zlcmcheng2[index] + this.zlczliang2[index] + '\n';
+                        }
+                        this.something1 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < this.tlcmcheng2.length; index++) {
+                            this.something1 += this.tlcmcheng2[index] + this.tlczliang2[index] + '\n';
+                        }
+                    }
+                }
+            },
+            jcrshu2: function (newVal, oldVal) {
+                if (newVal != oldVal) {
+                    if (Number(newVal) > 0) {
+                        this.something2 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < this.zscmcheng3.length; index++) {
+                            this.something2 += this.zscmcheng3[index] + (Number(this.zsczliang3[index]) * Number(newVal)) + '\n';
+                        }
+                        this.something2 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < this.zlcmcheng3.length; index++) {
+                            this.something2 += this.zlcmcheng3[index] + (Number(this.zlczliang3[index]) * Number(newVal)) + '\n';
+                        }
+                        this.something2 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < this.tlcmcheng3.length; index++) {
+                            this.something2 += this.tlcmcheng3[index] + (Number(this.tlczliang3[index]) * Number(newVal)) + '\n';
+                        }
+                    } else {
+                        this.something2 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < this.zscmcheng3.length; index++) {
+                            this.something2 += this.zscmcheng3[index] + this.zsczliang3[index] + '\n';
+                        }
+                        this.something2 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < this.zlcmcheng3.length; index++) {
+                            this.something2 += this.zlcmcheng3[index] + this.zlczliang3[index] + '\n';
+                        }
+                        this.something2 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < this.tlcmcheng3.length; index++) {
+                            this.something2 += this.tlcmcheng3[index] + this.tlczliang3[index] + '\n';
+                        }
+                    }
+                }
+            },
+            jcrshu3: function (newVal, oldVal) {
+                if (newVal != oldVal) {
+                    if (Number(newVal) > 0) {
+                        this.something3 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < this.zscmcheng4.length; index++) {
+                            this.something3 += this.zscmcheng4[index] + (Number(this.zsczliang4[index]) * Number(newVal)) + '\n';
+                        }
+                        this.something3 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < this.zlcmcheng4.length; index++) {
+                            this.something3 += this.zlcmcheng4[index] + (Number(this.zlczliang4[index]) * Number(newVal)) + '\n';
+                        }
+                        this.something3 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < this.tlcmcheng4.length; index++) {
+                            this.something3 += this.tlcmcheng4[index] + (Number(this.tlczliang4[index]) * Number(newVal)) + '\n';
+                        }
+                    } else {
+                        this.something3 = '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">主食材</p>';
+                        for (let index = 0; index < this.zscmcheng4.length; index++) {
+                            this.something3 += this.zscmcheng4[index] + this.zsczliang4[index] + '\n';
+                        }
+                        this.something3 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">佐料</p>';
+                        for (let index = 0; index < this.zlcmcheng4.length; index++) {
+                            this.something3 += this.zlcmcheng4[index] + this.zlczliang4[index] + '\n';
+                        }
+                        this.something3 += '<p style="color:red; text-align:center; height:2rem; line-height:2rem; font-size:1.5rem; font-weight: bold;">调料</p>';
+                        for (let index = 0; index < this.tlcmcheng4.length; index++) {
+                            this.something3 += this.tlcmcheng4[index] + this.tlczliang4[index] + '\n';
+                        }
+                    }
+                }
+            },
+        },
+    }
+    Vue.createApp(app).mount('#app')
+</script>
+
+</html>
+{% endverbatim %}

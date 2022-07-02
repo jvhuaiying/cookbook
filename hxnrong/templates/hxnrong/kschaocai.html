@@ -1,0 +1,288 @@
+{% verbatim %}
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开始炒菜</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.37/vue.global.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .parent0 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            grid-column-gap: 0px;
+            grid-row-gap: 0px;
+            background-color: #ecf5ff;
+        }
+
+        .div01 {
+            grid-area: 2 / 2 / 5 / 3;
+            place-self: center;
+            overflow: auto;
+        }
+
+        /* 候选菜谱详情 */
+        .hxcpxqing {
+            width: 100%;
+            height: 3rem;
+        }
+
+        .hxcpxqing :hover {
+            background-color: #409EFF;
+            cursor: pointer;
+            color: #ecf5ff;
+            border-radius: 1rem;
+        }
+
+        .dzbjing1 {
+            background-color: #409EFF;
+            color: #d9ecff;
+        }
+
+        .dzbjing2 {
+            background-color: #d9ecff;
+            color: #337ecc;
+        }
+
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body id="app">
+    <div class="parent0" :style="wcgdszhi" v-show="cpxze">
+        <div class="div01">
+            <p style="height: 3rem; font-size: 1.5rem; font-weight: bold; text-align: center;">请选择要炒的菜品</p>
+            <div class="hxcpxqing" v-for="(item, index) in hxcpu" :key="index" @click="cpxze0(index)">
+                <p style="height: 3rem; line-height: 3rem; font-size: 1.5rem; text-align: center;">{{ item }}</p>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%; background-color: #d9ecff; overflow: auto;" :style="wcgdszhi" v-show="cpxzwcheng">
+        <div style="width: 50%; float: left;" :style="wcgdszhi">
+            <h1 style="height: 3rem; line-height: 3rem; font-size: 3rem; text-align: center;"><a href="/clqdan">{{ dqcpmcheng }}</a></h1>
+            <div style="margin-top: 2rem; height: 3rem; line-height: 3rem; font-size: 1.5rem; text-align: left;">计时：{{
+                chaocaijshi }}</div>
+            <div style="width: 15%; float: left; text-align: center; height: 6rem;">
+                <p
+                    style="color: red; font-weight: bold; height: 3rem; line-height: 3rem; font-size: 1.5rem; text-align: center;">
+                    步骤编号</p>
+                <p style="color: #409EFF; font-weight: bold; height: 3rem; line-height: 3rem; font-size: 1.5rem;">{{
+                    bzbhao }}</p>
+            </div>
+            <div style="width: 15%; float: left; height: 6rem;">
+                <p
+                    style="color: red; font-weight: bold; height: 3rem; line-height: 3rem; font-size: 1.5rem; text-align: center;">
+                    火力</p>
+                <p
+                    style="color: #409EFF; font-weight: bold; height: 3rem; line-height: 3rem; font-size: 1.5rem; text-align: center;">
+                    {{
+                    dqhli }}</p>
+            </div>
+            <div style="width: 70%; float: left; height: 30rem; overflow: auto;">
+                <p
+                    style="color: red; font-weight: bold; height: 3rem; line-height: 3rem; font-size: 1.5rem; text-align: center;">
+                    操作步骤</p>
+                <p style="color: #409EFF; font-weight: bold; height: 3rem; line-height: 3rem; font-size: 1.5rem;">{{
+                    dqdzuo }}</p>
+            </div>
+            <div style="width: 100%; height: 3rem;">
+                <div style="width: 50%; height: 3rem; float: left; text-align: center;">
+                    <button style="width: 80%; height: 3rem; font-size: 1.5rem;" @click="kschaocai">开始</button>
+                </div>
+                <div style="width: 50%; height: 3rem; float: left; text-align: center;">
+                    <button style="width: 80%; height: 3rem; font-size: 1.5rem;" @click="ztjxu">暂停/继续</button>
+                </div>
+            </div>
+        </div>
+        <div style="width: 50%; float: left;" :style="wcgdszhi">
+            <div style="width: 15%; float: left; height: 38rem; overflow: auto;">
+                <p style="height: 3rem; line-height: 3rem; font-size: 1.5rem; font-weight: bold; text-align: center;">时间
+                </p>
+                <div style="width: 90%;" v-for="(item, index) in sjiedian" :key="index"
+                    :class="index%2==0?'dzbjing1':'dzbjing2'">
+                    <div style="width: 100%; line-height: 3rem; font-size: 1.5rem; text-align: center;">
+                        {{item}}</div>
+                </div>
+            </div>
+            <div style="width: 15%; float: left; height: 38rem; overflow: auto;">
+                <p style="height: 3rem; line-height: 3rem; font-size: 1.5rem; font-weight: bold; text-align: center;">火力
+                </p>
+                <div style="width: 90%;" v-for="(item, index) in hli" :key="index"
+                    :class="index%2==0?'dzbjing1':'dzbjing2'">
+                    <div style="width: 100%; line-height: 3rem; font-size: 1.5rem; text-align: center;">
+                        {{item}}</div>
+                </div>
+            </div>
+            <div style="width: 70%; float: left; height: 38rem; overflow: auto;">
+                <p style="height: 3rem; line-height: 3rem; font-size: 1.5rem; font-weight: bold; text-align: center;">
+                    操作步骤</p>
+                <div style="width: 80%; margin: 0 auto;" v-for="(item, index) in dzuo" :key="index"
+                    :class="index%2==0?'dzbjing1':'dzbjing2'">
+                    <div style="width: 100%; line-height: 3rem; font-size: 1.5rem;">
+                        {{item}}</div>
+                </div>
+            </div>
+            <div style="width: 100%; height: 3rem;">
+                <div style="width: 50%; height: 3rem; float: left; text-align: center;">
+                    <button style="width: 80%; height: 3rem; font-size: 1.5rem;" @click="sybu">上一步</button>
+                </div>
+                <div style="width: 50%; height: 3rem; float: left; text-align: center;">
+                    <button style="width: 80%; height: 3rem; font-size: 1.5rem;" @click="xybu">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    app = {
+        data() {
+            return {
+                // 当前菜谱名称
+                dqcpmcheng: '',
+                // 当前火力
+                dqhli: "",
+                // 当前动作
+                dqdzuo: '',
+                hxcpu: [],
+                cpxze: true,
+                cpxzwcheng: false,
+                wcgdszhi: {
+                    height: '',
+                },
+                // 动作
+                dzuo: [],
+                // 火力
+                hli: [],
+                // 时间节点
+                sjiedian: [],
+                ztztai: false,
+                // 步骤编号
+                bzbhao: 0,
+                // 炒菜计时
+                chaocaijshi: 0,
+                // 计时器中断
+                jsqzduan: '',
+                // 是否完成
+                wc: false,
+                dzbjing1: false,
+                dzbjing2: false,
+                // 暂停状态
+                ztztai: false,
+            }
+        },
+        methods: {
+            cpxze0(index) {
+                this.dqcpmcheng = this.hxcpu[index];
+                this.cpxze = false;
+                this.cpxzwcheng = true;
+                axios.post('/hqbuzhou', {
+                    cpmcheng: this.hxcpu[index],
+                }).then(res => {
+                    this.dzuo = res.data.dzuo;
+                    this.hli = res.data.hli;
+                    this.sjiedian = res.data.sjiedian;
+                })
+                this.hxcpu.splice(index, 1);
+            },
+            kschaocai() {
+                this.chaocaijshi = 0;
+                this.wc = false;
+                this.bzbhao = 1;
+                this.dqhli = this.hli[this.bzbhao - 1];
+                this.dqdzuo = this.dzuo[this.bzbhao - 1];
+                this.jsqzduan = setInterval(() => {
+                    this.chaocaijshi = this.chaocaijshi + 1;
+                }, 1000);
+            },
+            sybu() {
+                window.clearInterval(this.jsqzduan);
+                this.ztztai = true;
+                if (this.bzbhao > 1) {
+                    this.bzbhao = this.bzbhao - 1;
+                    this.dqhli = this.hli[this.bzbhao - 1];
+                    this.dqdzuo = this.dzuo[this.bzbhao - 1];
+                    this.chaocaijshi = this.sjiedian[this.bzbhao - 1];
+                } else {
+                    this.bzbhao = 1;
+                    this.dqhli = this.hli[this.bzbhao - 1];
+                    this.dqdzuo = this.dzuo[this.bzbhao - 1];
+                    this.chaocaijshi = this.sjiedian[this.bzbhao - 1];
+                }
+            },
+            xybu() {
+                this.ztztai = true;
+                window.clearInterval(this.jsqzduan);
+                if (this.bzbhao < this.hli.length) {
+                    this.bzbhao = this.bzbhao + 1;
+                    this.dqhli = this.hli[this.bzbhao - 1];
+                    this.dqdzuo = this.dzuo[this.bzbhao - 1];
+                    this.chaocaijshi = this.sjiedian[this.bzbhao - 1];
+
+                } else {
+                    this.bzbhao = this.bzbhao;
+                    this.dqhli = this.hli[this.bzbhao - 1];
+                    this.dqdzuo = this.dzuo[this.bzbhao - 1];
+                    this.chaocaijshi = this.sjiedian[this.bzbhao - 1];
+                }
+            },
+            ztjxu() {
+                if (this.ztztai) {
+                    this.ztztai = false;
+                    this.jsqzduan = setInterval(() => {
+                        this.chaocaijshi = this.chaocaijshi + 1;
+                    }, 1000);
+                } else {
+                    clearInterval(this.jsqzduan);
+                    this.ztztai = true;
+                }
+            }
+        },
+        watch: {
+            chaocaijshi() {
+                if (this.bzbhao < this.hli.length) {
+                    if (this.chaocaijshi >= this.sjiedian[this.bzbhao]) {
+                        this.bzbhao = this.bzbhao + 1;
+                        this.dqhli = this.hli[this.bzbhao - 1];
+                        this.dqdzuo = this.dzuo[this.bzbhao - 1];
+                    }
+                } else if (this.bzbhao = this.hli.length) {
+                    this.bzbhao = this.bzbhao;
+                    this.dqhli = this.hli[this.bzbhao - 1];
+                    this.dqdzuo = this.dzuo[this.bzbhao - 1];
+                    if (this.chaocaijshi = this.sjiedian[this.bzbhao - 1]) {
+                        window.clearInterval(this.jsqzduan);
+                        this.wc = true;
+                    }
+                };
+            },
+            wc() {
+                if (this.wc) {
+                    alert('炒菜完成！');
+                }
+            }
+        },
+        beforeMount() {
+            this.wcgdszhi.height = window.innerHeight + 'px';
+        },
+        mounted() {
+            axios.get('/kschaocai').then(res => {
+                this.hxcpu = res.data;
+            });
+        },
+    }
+    Vue.createApp(app).mount('#app');
+</script>
+
+</html>
+{% endverbatim %}
