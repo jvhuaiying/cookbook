@@ -50,8 +50,8 @@
 </head>
 
 <body id="app">
-    <div style="width: 100%; background-color: #d9ecff; overflow: auto;" :style="zwcgdszhi">
-        <div style="margin: 0 auto; width: 90%;" :style="d1cgdszhi">
+    <div style="width: 100vw; height: 100vh; background-color: #d9ecff; overflow: auto;">
+        <div style="margin: 0 auto; width: 90vw; height: 90vh;">
             <h1 style="height: 3rem; font-size: 2rem; font-weight: bold;">新增菜谱</h1>
             <div style="width: 100%; height: 4rem;">
                 <div style="width: 50%; height: 4rem; line-height: 4rem; font-size: 1.5rem; float: left;">
@@ -472,12 +472,6 @@
     app = {
         data() {
             return {
-                zwcgdszhi: {
-                    height: '',
-                },
-                d1cgdszhi: {
-                    height: '',
-                },
                 cpmcheng: '',
                 zscmcheng: ['', '', '', '', '', '', '', '', '', ''],
                 zsczliang: ['', '', '', '', '', '', '', '', '', ''],
@@ -500,10 +494,6 @@
                 hliarr: [],
                 dzuoarr: [],
             }
-        },
-        beforeMount() {
-            this.zwcgdszhi.height = window.innerHeight + 'px';
-            this.d1cgdszhi.height = window.innerHeight * 0.9 + 'px';
         },
         methods: {
             szqkong() {

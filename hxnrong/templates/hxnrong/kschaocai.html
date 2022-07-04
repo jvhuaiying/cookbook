@@ -22,6 +22,8 @@
             grid-column-gap: 0px;
             grid-row-gap: 0px;
             background-color: #ecf5ff;
+            width: 100vw;
+            height: 100vh;
         }
 
         .div01 {
@@ -60,7 +62,7 @@
 </head>
 
 <body id="app">
-    <div class="parent0" :style="wcgdszhi" v-show="cpxze">
+    <div class="parent0" v-show="cpxze">
         <div class="div01">
             <p style="height: 3rem; font-size: 1.5rem; font-weight: bold; text-align: center;">请选择要炒的菜品</p>
             <div class="hxcpxqing" v-for="(item, index) in hxcpu" :key="index" @click="cpxze0(index)">
@@ -68,8 +70,8 @@
             </div>
         </div>
     </div>
-    <div style="width: 100%; background-color: #d9ecff; overflow: auto;" :style="wcgdszhi" v-show="cpxzwcheng">
-        <div style="width: 50%; float: left;" :style="wcgdszhi">
+    <div style="width: 100%; height: 100vh; background-color: #d9ecff; overflow: auto;" v-show="cpxzwcheng">
+        <div style="width: 50%; height: 100vh; float: left;">
             <h1 style="height: 3rem; line-height: 3rem; font-size: 3rem; text-align: center;"><a href="/clqdan">{{ dqcpmcheng }}</a></h1>
             <div style="margin-top: 2rem; height: 3rem; line-height: 3rem; font-size: 1.5rem; text-align: left;">计时：{{
                 chaocaijshi }}</div>
@@ -105,7 +107,7 @@
                 </div>
             </div>
         </div>
-        <div style="width: 50%; float: left;" :style="wcgdszhi">
+        <div style="width: 50%; height: 100vh; float: left;">
             <div style="width: 15%; float: left; height: 38rem; overflow: auto;">
                 <p style="height: 3rem; line-height: 3rem; font-size: 1.5rem; font-weight: bold; text-align: center;">时间
                 </p>
@@ -157,9 +159,6 @@
                 hxcpu: [],
                 cpxze: true,
                 cpxzwcheng: false,
-                wcgdszhi: {
-                    height: '',
-                },
                 // 动作
                 dzuo: [],
                 // 火力
@@ -271,9 +270,6 @@
                     alert('炒菜完成！');
                 }
             }
-        },
-        beforeMount() {
-            this.wcgdszhi.height = window.innerHeight + 'px';
         },
         mounted() {
             axios.get('/kschaocai').then(res => {
